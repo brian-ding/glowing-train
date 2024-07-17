@@ -17,11 +17,19 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: test url
-        run: echo "${{ github.event.pull_request.url }} \n ${{ github.event.pull_request.html_url }}"
+      - name: Checkout common-scripts repository
+        uses: actions/checkout@v4
+        with:
+          repository: brian-ding/scaling-robot
+          ref: main
+          path: scaling-robot
 
-      # - name: PR summary
-      #   run: python summary -p ${{ github.event.pull_request.url }}
-
-      # - name: PR code review
-      #   run: python review -p ${{ github.event.pull_request.url }}
+      - name: PR summary
+        working-directory: ./scaling-robot
+        # run: python summary -p ${{ github.event.pull_request.html_url }}
+        run: ls
+        
+      - name: PR code review
+        working-directory: ./scaling-robot
+        # run: python review -p ${{ github.event.pull_request.html_url }}
+        run: ls
