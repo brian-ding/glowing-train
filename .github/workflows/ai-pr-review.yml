@@ -26,8 +26,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: brian-ding/scaling-robot
-          #ref: main
-          ref: feature/castle/add-review-and-sammary-command
+          ref: main
+          #ref: feature/castle/add-review-and-sammary-command
           path: scaling-robot
 
       - name: Restore pip packages
