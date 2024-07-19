@@ -3,12 +3,14 @@ name: AI PR Review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-  # workflow_dispatch: {}
+  workflow_dispatch: {}
 permissions:
   id-token: write
   contents: read
   pull-requests: write
   issues: write
+env:
+  LLM_HOST: ${{secrets.LLM_HOST}}
 
 jobs:
   ai-pr-review:
