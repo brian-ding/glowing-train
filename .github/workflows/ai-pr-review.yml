@@ -3,7 +3,14 @@ name: AI PR Review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        type: string
+        description: the target branch to run python from other repo
+      pr_number:
+        type: string
+        description: the tested pr number in this repo
 permissions:
   id-token: write
   contents: read
@@ -28,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: brian-ding/scaling-robot
-          ref: main
+          ref: ${{inputs.target_branch}}
           #ref: feature/castle/add-review-and-sammary-command
           path: scaling-robot
 
@@ -38,12 +45,24 @@ jobs:
 
       - name: PR summary
         working-directory: ./scaling-robot
-        run: python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          if [ "$PR_NUMBER" == "" ]; then
+            python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
+          else
+            python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ env.PR_NUMBER}}
+          fi
 
       - name: PR code review
         working-directory: ./scaling-robot
-        run: python main.py review -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          if [ "$PR_NUMBER" == "" ]; then
+            python main.py review -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
+          else
+            python main.py review -r ${{ github.event.repository.full_name }} -n ${{ env.PR_NUMBER}}
+          fi
