@@ -18,6 +18,10 @@ permissions:
   issues: write
 env:
   LLM_HOST: ${{secrets.LLM_HOST}}
+  AZURE_OPENAI_ENABLED: True
+  AZURE_OPENAI_URL: ${{secrets.LLM_HOST}}
+  AZURE_OPENAI_VERSION: 2024-02-15-preview
+  AZURE_OPENAI_KEY: ${{secrets.LLM_HOST}}
 
 jobs:
   ai-pr-review:
@@ -42,14 +46,7 @@ jobs:
       - name: Restore pip packages
         working-directory: ./scaling-robot
         run: pip install -r requirements.txt
-      
-      - name: Load environment variables from .bashrc
-        run: |
-          echo "Loading environment variables from .bashrc"
-          set -a
-          source ~/.bashrc
-          printenv > $GITHUB_ENV
-          
+                
       - name: PR summary
         working-directory: ./scaling-robot
         run: |
