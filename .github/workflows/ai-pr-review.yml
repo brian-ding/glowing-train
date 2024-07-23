@@ -48,6 +48,7 @@ jobs:
         run: |
           source ~/.bashrc
           echo $AZURE_OPENAI_ENABLED
+          echo $AZURE_OPENAI_URL
           whoami
           python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
         env:
