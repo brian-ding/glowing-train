@@ -3,7 +3,14 @@ name: AI PR Review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        type: string
+        description: the target branch to run python from other repo
+      pr_number:
+        type: string
+        description: the tested pr number in this repo
 permissions:
   id-token: write
   contents: read
