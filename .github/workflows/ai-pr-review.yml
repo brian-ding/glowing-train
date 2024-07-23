@@ -47,6 +47,7 @@ jobs:
         working-directory: ./scaling-robot
         run: |
           echo $AZURE_OPENAI_ENABLED
+          whoami
           python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
