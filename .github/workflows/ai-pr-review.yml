@@ -42,11 +42,17 @@ jobs:
       - name: Restore pip packages
         working-directory: ./scaling-robot
         run: pip install -r requirements.txt
-
+      
+      - name: Load environment variables from .bashrc
+        run: |
+          echo "Loading environment variables from .bashrc"
+          set -a
+          source ~/.bashrc
+          printenv > $GITHUB_ENV
+          
       - name: PR summary
         working-directory: ./scaling-robot
         run: |
-          source ~/.bashrc
           echo $AZURE_OPENAI_ENABLED
           echo $AZURE_OPENAI_URL
           echo $Python2_ROOT_DIR
