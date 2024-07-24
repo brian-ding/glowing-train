@@ -40,7 +40,7 @@ jobs:
         with:
           repository: brian-ding/scaling-robot
           #ref: main
-          ref: feature/castle/integrate-with-AzureOpenAI
+          ref: bugfix/castle/change-model-for-ollama
           path: scaling-robot
 
       - name: Restore pip packages
