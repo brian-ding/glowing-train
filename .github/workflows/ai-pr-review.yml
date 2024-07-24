@@ -19,9 +19,9 @@ permissions:
 env:
   LLM_HOST: ${{secrets.LLM_HOST}}
   AZURE_OPENAI_ENABLED: True
-  AZURE_OPENAI_URL: ${{secrets.LLM_HOST}}
-  AZURE_OPENAI_VERSION: 2024-02-15-preview
-  AZURE_OPENAI_KEY: ${{secrets.LLM_HOST}}
+  AZURE_OPENAI_URL: ${{secrets.AZURE_OPENAI_URL }}
+  AZURE_OPENAI_VERSION: ${{secrets.AZURE_OPENAI_VERSION }}
+  AZURE_OPENAI_KEY: ${{secrets.AZURE_OPENAI_KEY }}
 
 jobs:
   ai-pr-review:
@@ -52,7 +52,6 @@ jobs:
         run: |
           echo $AZURE_OPENAI_ENABLED
           echo $AZURE_OPENAI_URL
-          echo $Python2_ROOT_DIR
           python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
