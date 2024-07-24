@@ -18,7 +18,7 @@ permissions:
   issues: write
 env:
   LLM_HOST: ${{secrets.LLM_HOST}}
-  AZURE_OPENAI_ENABLED: false
+  AZURE_OPENAI_ENABLED: true
   AZURE_OPENAI_URL: ${{secrets.AZURE_OPENAI_URL }}
   AZURE_OPENAI_VERSION: ${{secrets.AZURE_OPENAI_VERSION }}
   AZURE_OPENAI_KEY: ${{secrets.AZURE_OPENAI_KEY }}
