@@ -18,6 +18,10 @@ permissions:
   issues: write
 env:
   LLM_HOST: ${{secrets.LLM_HOST}}
+  AZURE_OPENAI_ENABLED: true
+  AZURE_OPENAI_URL: ${{secrets.AZURE_OPENAI_URL }}
+  AZURE_OPENAI_VERSION: ${{secrets.AZURE_OPENAI_VERSION }}
+  AZURE_OPENAI_KEY: ${{secrets.AZURE_OPENAI_KEY }}
 
 jobs:
   ai-pr-review:
@@ -31,57 +35,27 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Set up target branch
-        id: step-target-branch
-        env:
-          TARGET_BRANCH: ${{ inputs.target_branch }}
-        run: |
-          if [ "$TARGET_BRANCH" == "" ]; then
-            echo "::set-output name=target_branch::main"
-          else
-            echo "::set-output name=target_branch::$TARGET_BRANCH"
-          fi
-
-      - name: Get target branch
-        run: echo "The target branch is ${{ steps.step-target-branch.outputs.target_branch }}"
-
-      - name: Set up pr number
-        id: step-pr-number
-        env:
-          PR_NUMBER: ${{inputs.pr_number}}
-        run: |
-          run: |
-          if [ "$PR_NUMBER" == "" ]; then
-            echo "::set-output name=pr_number::${{ github.event.pull_request.number}}"
-          else
-            echo "::set-output name=pr_number::$PR_NUMBER"
-          fi
-
-      - name: Get pr number
-        run: echo "The pr number is ${{ steps.step-pr-number.outputs.pr_number }}"
-
       - name: Checkout common-scripts repository
         uses: actions/checkout@v4
         with:
           repository: brian-ding/scaling-robot
-          ref: ${{inputs.target_branch}}
-          #ref: feature/castle/add-review-and-sammary-command
+          ref: main
+          #ref: bugfix/castle/change-model-for-ollama
           path: scaling-robot
 
       - name: Restore pip packages
         working-directory: ./scaling-robot
         run: pip install -r requirements.txt
-
+                
       - name: PR summary
         working-directory: ./scaling-robot
+        run: |
+          python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ steps.step-pr-number.outputs.pr_number }}
 
       - name: PR code review
         working-directory: ./scaling-robot
+        run: python main.py review -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python main.py review -r ${{ github.event.repository.full_name }} -n ${{ steps.step-pr-number.outputs.pr_number }}
