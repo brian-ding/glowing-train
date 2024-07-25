@@ -30,3 +30,8 @@ Make sure that you provide the following information in either PR title or PR de
 - type of the change: feature | bugfix | translation import | technical | documentation | other
 - short description of the purpose of the PR
 - screenshots
+
+## Code Standard
+
+- You must use refit to implement your http client.
+- You must add BMW-Correlation-Id header for each http request.
