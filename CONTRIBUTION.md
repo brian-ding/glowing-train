@@ -1,8 +1,8 @@
-Please follow the rules when submit code:
+Please follow the rules when submitting code:
 
 # 1. HTTP Status Code
 
-make sure you return the correct http status code
+Make sure to return the correct HTTP status code.
 
 HTTP Status Code | HTTP Method | Scenario
 -- | -- | --
@@ -21,7 +21,7 @@ HTTP Status Code | HTTP Method | Scenario
 
 # 2. Pull Request
 
-make sure that you provide the following information in either PR title or PR description
+Make sure that you provide the following information in either PR title or PR description.
 
 - jira ticket
 - team
