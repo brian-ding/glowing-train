@@ -56,6 +56,6 @@ jobs:
 
       - name: PR code review
         working-directory: ./scaling-robot
-        run: python main.py review -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
+        run: python main.py review -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}} -g ../CONTRIBUTION.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
