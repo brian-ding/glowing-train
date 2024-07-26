@@ -36,5 +36,13 @@ namespace BookStore.Controllers
             var books = await _bookStoreAppService.GetBookAsync(id);
             return Ok(books);
         }
+
+        [HttpGet]
+        [Route("look-up/{keyword}")]
+        public async Task<IActionResult> LookupBook(string keyword)
+        {
+            var books = await _bookStoreAppService.FindBooksAsync(keyword);
+            return NoContent();
+        }
     }
 }
