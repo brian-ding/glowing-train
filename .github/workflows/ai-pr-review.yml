@@ -40,7 +40,7 @@ jobs:
         with:
           repository: brian-ding/scaling-robot
           ref: main
-          #ref: bugfix/castle/change-model-for-ollama
+          #ref: guideline-summary
           path: scaling-robot
 
       - name: Restore pip packages
@@ -50,12 +50,12 @@ jobs:
       - name: PR summary
         working-directory: ./scaling-robot
         run: |
-          python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
+          python main.py summary -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}} -g ../CONTRIBUTION.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: PR code review
         working-directory: ./scaling-robot
-        run: python main.py review -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}}
+        run: python main.py review -r ${{ github.event.repository.full_name }} -n ${{ github.event.pull_request.number}} -g ../CONTRIBUTION.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
