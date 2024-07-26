@@ -39,8 +39,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: brian-ding/scaling-robot
-          #ref: main
-          ref: guideline-summary
+          ref: main
+          #ref: guideline-summary
           path: scaling-robot
 
       - name: Restore pip packages
