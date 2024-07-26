@@ -40,7 +40,7 @@ jobs:
         with:
           repository: brian-ding/scaling-robot
           #ref: main
-          ref: ollama-test
+          ref: test-ollama
           path: scaling-robot
 
       - name: Restore pip packages
