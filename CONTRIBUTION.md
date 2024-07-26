@@ -31,7 +31,3 @@ Make sure that you provide the following information in either PR title or PR de
 - short description of the purpose of the PR
 - screenshots
 
-# 3. Code Standard
-
-- You must use refit library for ApsnetCore outbound http request, don't use IHttpClientFactory directly.
-- You must add BMW-Correlation-Id header in each outbound http request headers.

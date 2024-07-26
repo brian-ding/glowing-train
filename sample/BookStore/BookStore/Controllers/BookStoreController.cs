@@ -23,37 +23,18 @@ namespace BookStore.Controllers
         [Route("search/{keyword}")]
         public async Task<IActionResult> FindBook(string keyword)
         {
-            try
-            {
-                var books = await _bookStoreAppService.FindBooksAsync(keyword);
-                return Ok(books);
-            }
-            catch (RemoteServiceException re)
-            {
-                _logger.LogError(re,"we met an networking issue");
-                return BadRequest();
-            }
+
+            var books = await _bookStoreAppService.FindBooksAsync(keyword);
+            return Ok(books);
         }
 
         [HttpGet]
         [Route("{id:guid}")]
         public async Task<IActionResult> FindBook(Guid id)
         {
-            try
-            {
-                var books = await _bookStoreAppService.GetBookAsync(id);
-                return Ok(books);
-            }
-            catch (RemoteServiceException re) when (re.HttpStatusCode == 404)
-            {
-                _logger.LogError(re, "The book is not found");
-                return NoContent();
-            }
-            catch (RemoteServiceException re)
-            {
-                _logger.LogError(re, "we met an networking issue");
-                return BadRequest();
-            }
+
+            var books = await _bookStoreAppService.GetBookAsync(id);
+            return Ok(books);
         }
     }
 }
