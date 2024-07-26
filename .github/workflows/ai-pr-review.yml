@@ -40,7 +40,8 @@ jobs:
         with:
           repository: brian-ding/scaling-robot
           #ref: main
-          ref: fix/castle/out-put-schema-issue
+          # ref: fix/castle/out-put-schema-issue
+          ref: summary
           path: scaling-robot
 
       - name: Restore pip packages
