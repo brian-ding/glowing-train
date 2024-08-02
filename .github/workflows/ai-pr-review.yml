@@ -46,7 +46,7 @@ jobs:
       - name: Restore pip packages
         working-directory: ./scaling-robot
         run: pip install -r requirements.txt
-                
+
       - name: PR summary
         working-directory: ./scaling-robot
         run: |
